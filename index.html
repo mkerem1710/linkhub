@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +18,7 @@
     [data-theme="sunset"]  { --bg: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%); --accent: #ff7e5f; }
     [data-theme="forest"]  { --bg: linear-gradient(135deg, #134e5e 0%, #71b280 100%); --accent: #71b280; }
     [data-theme="purple"]  { --bg: linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%); --accent: #8e2de2; }
-    [data-theme="minimal"] { --bg: #f1f5f9; --card: white; --text: #1e293b; --accent: #3b82f6; }
+    [data-theme="minimal"] { --bg: #f8fafc; --card: white; --text: #1e293b; --accent: #3b82f6; }
 
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
@@ -28,190 +28,194 @@
       min-height: 100vh;
       padding: 3rem 1rem;
       background-attachment: fixed;
-      transition: all 0.5s;
+      transition: all 0.4s;
     }
     .container { max-width: 500px; margin: 0 auto; text-align: center; }
     .avatar {
       width: 120px; height: 120px; border-radius: 50%;
-      border: 5px solid var(--accent);
-      object-fit: cover; margin-bottom: 1.5rem;
-      box-shadow: var(--shadow);
-    }
+      border: 5px solid var(--accent); object-fit: cover;
+      margin-bottom: 1.5rem; box-shadow: var(--shadow);
     }
     h1 { font-size: 2.4rem; margin-bottom: 0.5rem; }
-    .bio { font-size: 1.1rem; opacity: 0.9; margin-bottom: 2.5rem; }
-    .links { margin: 2rem 0; }
+    .bio { font-size: 1.1rem; opacity: 0.9; margin-bottom: 2.5rem; font-weight: 500; }
     .link {
       display: block; background: var(--card); backdrop-filter: blur(10px);
-      color: var(--text); padding: 16px 20px; margin: 12px auto;
+      color: var(--text); padding: 18px; margin: 12px auto;
       max-width: 380px; border-radius: 16px; text-decoration: none;
-      font-weight: 600; box-shadow: var(--shadow); transition: all 0.3s;
-      border: 1px solid rgba(255,255,255,0.1);
+      font-weight: 600; box-shadow: var(--shadow); transition: transform 0.3s;
     }
-    .link:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
+    .link:hover { transform: translateY(-5px); }
     .btn {
       background: var(--accent); color: #000; border: none;
-      padding: 12px 24px; border-radius: 50px; font-weight: bold;
-      cursor: pointer; margin: 8px 5px;
+      padding: 14px 28px; border-radius: 50px; font-weight: bold;
+      cursor: pointer; margin: 10px; font-size: 1rem;
     }
     .edit-mode {
-      position: fixed; top:0; left:0; right:0; bottom:0;
-      background: rgba(0,0,0,0.95); color: white; padding: 2rem 1rem;
-      overflow-y: auto; z-index: 999; display: none;
+      position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+      color: white; padding: 2rem 1rem; overflow-y: auto; display: none; z-index: 999;
     }
     input, textarea, select {
-      width: 100%; padding: 12px; margin: 10px 0; border-radius: 12px;
-      border: none; background: rgba(255,255,255,0.2); color: white;
+      width: 100%; padding: 14px; margin: 12px 0;
+      border-radius: 12px; border: none;
+      background: rgba(255,255,255,0.2); color: white; font-size: 1rem;
     }
-    .drag-handle { cursor: move; opacity: 0.5; margin-right: 10px; }
+    .drag-handle { cursor: move; opacity: 0.6; margin-right: 12px; font-size: 1.2rem; }
   </style>
 </head>
 <body>
 
-  <div class="container" id="preview">
-    <img src="" class="avatar" id="avatarImg" alt="Profil">
-    <h1 id="isim">linkhub</h1>
-    <p class="bio" id="bio">Kendi linklerini 1 dakikada yap, kodlarını al ve GitHub Pages’de yayınla!</p>
-    <div class="links" id="links"></div>
-
-    <div style="margin-top:30px">
-      <button class="btn" onclick="openEditor()">Düzenle</button>
-      <button class="btn" onclick="downloadCode()">Kodlarımı İndir</button>
-    </div>
+<div class="container" id="preview">
+  <img src="" class="avatar" id="avatarImg">
+  <h1 id="name">linkhub</h1>
+  <p class="bio" id="bio">Create your page in 1 minute and download the code</p>
+  <div class="links" id="links"></div>
+  <div style="margin-top:40px">
+    <button class="btn" onclick="openEditor()">Edit</button>
+    <button class="btn" onclick="downloadCode()">Download Code</button>
   </div>
+</div>
 
-  <div id="editor" class="edit-mode">
-    <h2>Linkhub'ını Tasarla</h2>
-    <input type="text" id="editIsim" placeholder="İsim / Kullanıcı adı">
-    <textarea id="textarea" id="editBio" placeholder="Kısa açıklama (bio)" rows="3"></textarea>
-    <input type="url" id="editAvatar" placeholder="Avatar fotoğrafı linki">
-    <select id="theme">
-      <option value="default">Gradyan Mor</option>
-      <option value="dark">Karanlık</option>
-      <option value="pink">Pembe</option>
-      <option value="ocean">Okyanus</option>
-      <option value="sunset">Gün Batımı</option>
-      <option value="forest">Orman</option>
-      <option value="purple">Mor</option>
-      <option value="minimal">Minimal Beyaz</option>
-    </select>
+<div id="editor" class="edit-mode">
+  <h2>Create your linkhub</h2>
+  <input type="text" id="editName" placeholder="Name / Username">
+  <textarea id="editBio" placeholder="Short bio" rows="3"></textarea>
+  <input type="url" id="editAvatar" placeholder="Avatar image URL (optional)">
+  <select id="theme">
+    <option value="default">Gradient Purple</option>
+    <option value="dark">Dark Mode</option>
+    <option value="pink">Pink</option>
+    <option value="ocean">Ocean</option>
+    <option value="sunset">Sunset</option>
+    <option value="forest">Forest</option>
+    <option value="purple">Deep Purple</option>
+    <option value="minimal">Minimal</option>
+  </select>
 
-    <h3>Linklerin</h3>
-    <div id="linkList"></div>
-    <button class="btn" onclick="addLink()">+ Yeni Link Ekle</button>
+  <h3>Your Links</h3>
+  <div id="linkList"></div>
+  <button class="btn" onclick="addLink()">+ Add Link</button>
 
-    <div style="margin-top:30px">
-      <button class="btn" onclick="saveAndClose()">Kaydet</button>
-      <button class="btn" style="background:#ef4444" onclick="closeEditor()">İptal</button>
-    </div>
+  <div style="margin-top:40px">
+    <button class="btn" onclick="save()">Save</button>
+    <button class="btn" style="background:#ef4444" onclick="closeEditor()">Cancel</button>
   </div>
+</div>
 
-  <script>
-    let data = {
-      isim: "linkhub",
-      bio: "Kendi linklerini 1 dakikada yap, kodlarını al ve GitHub Pages’de yayınla!",
-      avatar: "",
-      theme: "default",
-      links: []
-    };
+<script>
+let data = {
+  name: "linkhub",
+  bio: "Create your page in 1 minute · download the code · deploy free on GitHub Pages",
+  avatar: "",
+  theme: "default",
+  links: []
+};
 
-    if (localStorage.getItem("linkhubData")) {
-      data = JSON.parse(localStorage.getItem("linkhubData"));
+if (localStorage.getItem("linkhubData")) {
+  data = JSON.parse(localStorage.getItem("linkhubData"));
+}
+
+function render() {
+  document.getElementById("name").textContent = data.name;
+  document.getElementById("bio").textContent = data.bio;
+  document.getElementById("avatarImg").src = data.avatar || "https://via.placeholder.com/120";
+  document.body.dataset.theme = data.theme;
+
+  const linksDiv = document.getElementById("links");
+  linksDiv.innerHTML = "";
+  data.links.forEach(item => {
+    const a = document.createElement("a");
+    a.href = item.url;
+    a.target = "_blank";
+    a.className = "link";
+    a.textContent = item.text;
+    linksDiv.appendChild(a);
+  });
+}
+
+function openEditor() {
+  document.getElementById("editName").value = data.name;
+  document.getElementById("editBio").value = data.bio;
+  document.getElementById("editAvatar").value = data.avatar;
+  document.getElementById("theme").value = data.theme;
+  document.getElementById("linkList").innerHTML = "";
+  data.links.forEach(item => addLinkToEditor(item.text, item.url));
+
+  document.getElementById("preview").style.display = "none";
+  document.getElementById("editor").style.display = "block";
+}
+
+function addLinkToEditor(text = "", url = "") {
+  const div = document.createElement("div");
+  div.style = "margin:15px 0;padding:18px;background:rgba(255,255,255,0.1);border-radius:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap";
+  div.innerHTML = `
+    <span class="drag-handle">↕</span>
+    <input type="text" placeholder="Button text" value="${text}" style="flex:1;min-width:120px">
+    <input type="url" placeholder="https://" value="${url}" style="flex:2;min-width:200px">
+    <button style="background:#ef4444;color:white;border:none;padding:8px 16px;border-radius:8px;cursor:pointer" onclick="this.parentElement.remove()">Delete</button>
+  `;
+  document.getElementById("linkList").appendChild(div);
+}
+
+function save() {
+  data.name = document.getElementById("editName").value || "linkhub";
+  data.bio = document.getElementById("editBio").value;
+  data.avatar = document.getElementById("editAvatar").value;
+  data.theme = document.getElementById("theme").value;
+  data.links = [];
+
+  document.querySelectorAll("#linkList > div").forEach(div => {
+    const inputs = div.querySelectorAll("input");
+    if (inputs[0].value.trim() && inputs[1].value.trim()) {
+      data.links.push({ text: inputs[0].value.trim(), url: inputs[1].value.trim() });
     }
+  });
 
-    function render() {
-      document.getElementById("isim").textContent = data.isim;
-      document.getElementById("bio").textContent = data.bio;
-      document.getElementById("avatarImg").src = data.avatar || "https://via.placeholder.com/120";
-      document.body.dataset.theme = data.theme;
+  localStorage.setItem("linkhubData", JSON.stringify(data));
+  render();
+  closeEditor();
+}
 
-      const linksDiv = document.getElementById("links");
-      linksDiv.innerHTML = "";
-      data.links.forEach(l => {
-        const a = document.createElement("a");
-        a.href = l.url; a.target = "_blank"; a.className = "link";
-        a.textContent = l.text;
-        linksDiv.appendChild(a);
-      });
-    }
+function closeEditor() {
+  document.getElementById("preview").style.display = "block";
+  document.getElementById("editor").style.display = "none";
+}
 
-    function openEditor() {
-      document.getElementById("editIsim").value = data.isim;
-      document.getElementById("editBio").value = data.bio;
-      document.getElementById("editAvatar").value = data.avatar;
-      document.getElementById("theme").value = data.theme;
-
-      const list = document.getElementById("linkList");
-      list.innerHTML = "";
-      data.links.forEach((l,i) => addLinkToEditor(l.text, l.url, i));
-
-      document.getElementById("preview").style.display = "none";
-      document.getElementById("editor").style.display = "block";
-    }
-
-    function addLinkToEditor(text="", url="", i=Date.now()) {
-      const div = document.createElement("div");
-      div.style = "margin:15px 0;padding:15px;background:rgba(255,255,255,0.1);border-radius:12px";
-      div.innerHTML = `
-        <span class="drag-handle">Drag</span>
-        <input type="text" placeholder="Yazı" value="${text}" style="width:45%">
-        <input type="url" placeholder="https://" value="${url}" style="width:45%">
-        <button style="background:#ef4444;float:right" onclick="this.parentElement.remove()">Sil</button>
-      `;
-      document.getElementById("linkList").appendChild(div);
-    }
-
-    function addLink() { addLinkToEditor(); }
-
-    function saveAndClose() {
-      data.isim = document.getElementById("editIsim").value || "İsimsiz";
-      data.bio = document.getElementById("editBio").value;
-      data.avatar = document.getElementById("editAvatar").value;
-      data.theme = document.getElementById("theme").value;
-      data.links = [];
-
-      document.querySelectorAll("#linkList > div").forEach(div => {
-        const inputs = div.querySelectorAll("input");
-        if (inputs[0].value && inputs[1].value) {
-          data.links.push({text: inputs[0].value, url: inputs[1].value});
-        }
-      });
-
-      localStorage.setItem("linkhubData", JSON.stringify(data));
-      render();
-      closeEditor();
-    }
-
-    function closeEditor() {
-      document.getElementById("preview").style.display = "block";
-      document.getElementById("editor").style.display = "none";
-    }
-
-    function downloadCode() {
-      const html = `<!DOCTYPE html>
-<html lang="tr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${data.isim}</title><style>${document.querySelector("style").innerHTML}</style></head>
+function downloadCode() {
+  const cleanHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>${data.name}</title>
+  <style>${document.querySelector("style").innerHTML}</style>
+</head>
 <body data-theme="${data.theme}">
   <div class="container">
     <img src="${data.avatar || 'https://via.placeholder.com/120'}" class="avatar">
-    <h1>${data.isim}</h1>
+    <h1>${data.name}</h1>
     <p class="bio">${data.bio}</p>
     <div class="links">
       ${data.links.map(l => `<a href="${l.url}" class="link" target="_blank">${l.text}</a>`).join("")}
     </div>
   </div>
-</body></html>`;
-      const blob = new Blob([html], {type:"text/html"});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a"); a.href = url;
-      a.download = "linklerim.html"; a.click();
-    }
+</body>
+</html>`;
 
-    render();
+  const blob = new Blob([cleanHTML], { type: "text/html" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "my-links.html";
+  a.click();
+}
 
-    // Sürükle-bırak
-    new Sortable(document.getElementById('linkList'), { handle: '.drag-handle', animation: 150 });
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+render();
+
+new Sortable(document.getElementById('linkList'), {
+  handle: '.drag-handle',
+  animation: 150
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
 </body>
 </html>
